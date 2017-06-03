@@ -1,0 +1,7 @@
+/// <reference path="app.d.ts" />
+var app = angular.module('uichallenge', ['ui.router',
+    'pascalprecht.translate',
+    'angularMoment'], function ($compileProvider) {
+});
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1vZHVsZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxpQ0FBaUM7QUFHakMsSUFBSSxHQUFHLEdBQUcsT0FBTyxDQUFDLE1BQU0sQ0FBQyxhQUFhLEVBQUUsQ0FBQyxXQUFXO0lBQ1gsd0JBQXdCO0lBQ3hCLGVBQWUsQ0FBQyxFQUFFLFVBQVMsZ0JBQWdCO0FBQ3BGLENBQUMsQ0FBQyxDQUFBIiwiZmlsZSI6Im1vZHVsZS5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vLyA8cmVmZXJlbmNlIHBhdGg9XCJhcHAuZC50c1wiIC8+XHJcblxyXG5cclxudmFyIGFwcCA9IGFuZ3VsYXIubW9kdWxlKCd1aWNoYWxsZW5nZScsIFsndWkucm91dGVyJ1xyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLCdwYXNjYWxwcmVjaHQudHJhbnNsYXRlJ1xyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLCdhbmd1bGFyTW9tZW50J10sIGZ1bmN0aW9uKCRjb21waWxlUHJvdmlkZXIpe1xyXG59KSJdfQ==
