@@ -1,19 +1,70 @@
 $top-height: 10vh;
 
+/* ----------------------------- media queries ----------------------------- */
+$smartphones: "only screen and (min-device-width : 320px) and (max-device-width : 480px)";
+$ipads: "only screen and (min-device-width : 768px) and (max-device-width : 1024px)";
+$desktops: "only screen  and (min-width : 1224px)";
 
-.myLocationPanel {
+body {
+    
+    background: url(../img/background.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    @media #{$smartphones} {
+        background: none;
+    }
+
+
+}
+
+.locatePage {
     margin-top: $top-height;
+
+    @media #{$smartphones} {
+        margin-top: 10vh;
+    }
+
+    @media #{$ipads} {
+        margin-top: 8vh;
+    }
+
+    @media #{$desktops} {
+        margin-top: 10vh;
+    }
+
 }
 
 .rightPanel {
-    margin-top: $top-height;
+    
+    background-color: rgba(69, 69, 69, .5);
+
+    @media #{$smartphones} {
+        background-color: #fff;
+    }
+
+    @media #{$ipads} {
+        background-color: #fff;
+    }
 
     .searchBox {
 
     }
 
+    /* Panel where map is displayed. */
     .mapPanel {
-        margin-top: 10px;
+        padding-top: 2vh;
+
+        @media #{$smartphones} {
+            margin: 8vh 0 8vh 0;
+        }
+
+        @media #{$ipads} {
+            margin: 10vh 0 10vh 0;
+        }
+
     }
 
 }

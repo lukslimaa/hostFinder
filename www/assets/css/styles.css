@@ -1,7 +1,40 @@
-.myLocationPanel {
+/* ----------------------------- media queries ----------------------------- */
+body {
+  background: url(../img/background.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+  @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    body {
+      background: none; } }
+
+.locatePage {
   margin-top: 10vh; }
+  @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    .locatePage {
+      margin-top: 10vh; } }
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    .locatePage {
+      margin-top: 8vh; } }
+  @media only screen and (min-width: 1224px) {
+    .locatePage {
+      margin-top: 10vh; } }
 
 .rightPanel {
-  margin-top: 10vh; }
+  background-color: rgba(69, 69, 69, 0.5);
+  /* Panel where map is displayed. */ }
+  @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    .rightPanel {
+      background-color: #fff; } }
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    .rightPanel {
+      background-color: #fff; } }
   .rightPanel .mapPanel {
-    margin-top: 10px; }
+    padding-top: 2vh; }
+    @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+      .rightPanel .mapPanel {
+        margin: 8vh 0 8vh 0; } }
+    @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+      .rightPanel .mapPanel {
+        margin: 10vh 0 10vh 0; } }
