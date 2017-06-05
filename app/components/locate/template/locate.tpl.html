@@ -1,0 +1,101 @@
+<div class="ui center aligned container" ng-controller="LocateController as ctrl">
+
+    <div class="ui stackable two column grid">
+        
+        <!-- My Location Panel - Begin -->
+        
+        <div class="six wide column myLocationPanel">
+            <div class="ui container segment">
+                <div class="column">
+                    <h2 class="ui header">My Location</h2>
+                </div><br/>
+                <div class="ui stackable two column grid">
+                    <div class="column">
+                        <button class="mini ui purple basic button" ng-click="ctrl.getMyLocation()">My Location</button>
+                    </div>
+                    <div class="column">
+                        <button class="mini ui grey basic button"ng-click="ctrl.resetMyLocation()">Reset Location</button>
+                    </div>
+                </div>
+                <table class="ui very basic collapsing celled table">
+                    <tbody>
+                        <tr>
+                            <td>IP</td>
+                            <td>{{ctrl.myLocation.ip}}</td>
+                        </tr>
+                        <tr>
+                            <td>Country</td>
+                            <td>{{ctrl.myLocation.country_name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Region</td>
+                            <td>{{ctrl.myLocation.region_code}}</td>
+                        </tr>
+                        <tr>
+                            <td>City</td>
+                            <td>{{ctrl.myLocation.city}}</td>
+                        </tr>
+                        <tr>
+                            <td>Zip Code</td>
+                            <td>{{ctrl.myLocation.zip_code}}</td>
+                        </tr>
+                        <tr>
+                            <td>Latitude</td>
+                            <td>{{ctrl.myLocation.latitude}}</td>
+                        </tr>
+                        <tr>
+                            <td>Longitude</td>
+                            <td>{{ctrl.myLocation.longitude}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- My Location Panel - End -->
+
+
+        <!-- Search location - Begin -->
+        <div class="column rightPanel">
+
+            <!-- Search box - Begin -->
+            <div class="column centered searchBox">
+                <form class="ui form">
+                    <div class="ui fluid action input">
+                        <input type="text" placeholder="www.avenuecode.com.br/" ng-model="ctrl.hostAddr">
+                        <button class="ui purple button" ng-click="ctrl.searchLocation(ctrl.hostAddr)">Locate</button>
+                    </div>
+                </form>
+            </div>
+            <!-- Search box - End -->
+
+            <!-- Map panel - Begin -->
+            <div class="column centered mapPanel">
+                <ng-map zoom="1" scrollwheel="false" zoom-to-include-markers="true" center="[{{ctrl.myLocation.latitude}}, {{ctrl.myLocation.longitude}}]" style="height:300px">
+                    <marker ng-if="ctrl.myLocation.latitude && ctrl.myLocation.longitude" 
+                            id="{{ctrl.myLocation.city}}"
+                            class="myLocationMarker" 
+                            data-title="{{ctrl.myLocation.city}}"
+                            position="[{{ctrl.myLocation.latitude}}, {{ctrl.myLocation.longitude}}]"  
+                            centered="true">
+
+                    </marker>
+                    <marker ng-if="ctrl.hostLocation.latitude && ctrl.hostLocation.longitude" 
+                            id="{{ctrl.hostLocation.city}}"
+                            class="hostLocationMarker" 
+                            position="{{ctrl.hostLocation.latitude}}, {{ctrl.hostLocation.longitude}}"
+                            animation="Animation.BOUNCE" 
+                            title="You are here"
+                            centered="true">
+
+                    </marker>
+                </ng-map>
+            </div>
+            <!-- Map panel - End -->
+
+
+        </div>
+        <!-- Search location - End -->
+    
+    </div>
+
+</div>

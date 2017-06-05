@@ -1,0 +1,17 @@
+## compiled output ##
+
+/build
+/www
+
+## dependencies ##
+/node_modules
+/bower_components
+
+# IDE's and editors in general
+/.idea
+
+# others
+/.sass-cache
+/connect.lock
+npm-debug.log
+

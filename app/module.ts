@@ -3,5 +3,6 @@
 
 var app = angular.module('uichallenge', ['ui.router'
                                         ,'pascalprecht.translate'
-                                        ,'angularMoment'], function($compileProvider){
+                                        ,'angularMoment'
+                                        ,'ngMap'], function($compileProvider){
 })

@@ -1,0 +1,19 @@
+$top-height: 10vh;
+
+
+.myLocationPanel {
+    margin-top: $top-height;
+}
+
+.rightPanel {
+    margin-top: $top-height;
+
+    .searchBox {
+
+    }
+
+    .mapPanel {
+        margin-top: 10px;
+    }
+
+}

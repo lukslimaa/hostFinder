@@ -13,6 +13,7 @@ var uglify = require('gulp-uglify'); // Minify JavaScript
 
 // Other dependencies
 //var size = require('gulp-size'); // Get the size of the project
+var flatten = require('gulp-flatten');
 var browserSync = require('browser-sync'); // Reload the browser on file changes
 //var jshint = require('gulp-jshint'); // Debug JS files
 //var stylish = require('jshint-stylish'); // More stylish debugging
@@ -43,9 +44,11 @@ gulp.task('styles', function() {
 
 /* (2) Task to minify new or changed HTML pages */
 gulp.task('templates', function() {
-  gulp.src('./app/templates/*.html')
+  gulp.src('./app/components/**/*.html')
     .pipe(htmlmin({collapseWhitespace: true}))
-    .pipe(gulp.dest('./build/templates'));
+    .pipe(flatten())
+    .pipe(gulp.dest('./build/templates'))
+    .pipe(gulp.dest('./www/assets/pages/templates'));
 });
 
 /* (3) Task to run JS hint */
@@ -84,9 +87,8 @@ gulp.task('scripts', function() {
 	                    .pipe(sourcemaps.init())
 	                    .pipe(tsProject());
     
-	return tsResults.js
-	                .pipe(sourcemaps.write())
-	                .pipe(gulp.dest('./www/app'));
+	return tsResults.js.pipe(sourcemaps.write())
+      .pipe(gulp.dest('./www/app'));
 });
 
 
@@ -100,6 +102,12 @@ gulp.task('serve', ['styles', 'templates', 'scripts'], function() {
 });
 
 
-// gulp.task('watch', ['scripts'], function() {
-// 	gulp.watch('src/app/**/*.ts', ['scripts']);
-// });
+gulp.task('watch', ['serve'], function() {
+	gulp.watch('app/**/*.ts', ['scripts']);
+  gulp.watch('app/components/**/*.html', ['templates']);
+  gulp.watch('app/sass/**/*.scss', ['styles']);
+
+  gulp.watch('www/assets/pages/**/*.html', browserSync.reload);
+  gulp.watch('www/app/**/*.js', browserSync.reload);
+  gulp.watch('www/assets/css/**/*.css', browserSync.reload);
+});

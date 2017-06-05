@@ -3,17 +3,13 @@
 module Tomedescontos {
 	app.config(function($stateProvider, $urlRouterProvider){
        // $locationProvider.html5Mode({ enabled: true, requireBase: false });
-        $urlRouterProvider.otherwise('/home');
+        $urlRouterProvider.otherwise('/locate');
         
         $stateProvider
-            .state('home', {
-                url: "/home",
-                templateUrl: "assets/pages/templates/promolist.tpl.html"
+            .state('locate', {
+                url: "/locate",
+                templateUrl: "assets/pages/templates/locate.tpl.html"
             })
-            // .state('detail', {
-            //     url: "/promocao/:title",
-            //     templateUrl: "assets/pages/templates/promoDetail.tpl.html"
-            // });
     });
     
 }
