@@ -20,6 +20,15 @@ body {
   @media only screen and (min-width: 1224px) {
     .locatePage {
       margin-top: 10vh; } }
+  .locatePage .myLocationPanel .myLocTable {
+    margin-top: 15px;
+    font-size: 0.7333rem; }
+  .locatePage .myLocationPanel .myLocDate {
+    background-color: #f8f8f8;
+    text-align: center;
+    color: grey;
+    font-size: 0.7rem;
+    margin-top: 8px; }
 
 .rightPanel {
   background-color: rgba(69, 69, 69, 0.5);

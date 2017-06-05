@@ -35,6 +35,23 @@ body {
         margin-top: 10vh;
     }
 
+    .myLocationPanel {
+
+        .myLocTable {
+            margin-top: 15px;
+            font-size: 0.7333rem;
+        }
+
+        .myLocDate {
+            background-color: #f8f8f8;
+            text-align: center;
+            color: grey;
+            font-size: 0.7rem;
+            margin-top: 8px;
+        }
+
+    }
+
 }
 
 .rightPanel {

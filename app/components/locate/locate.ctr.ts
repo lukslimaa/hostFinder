@@ -9,6 +9,7 @@ module Uichallenge {
         private myLocationBkp: any;
         private hostLocation: any;
         private hostAddr: string;
+        private now: Date;
 
         constructor(private $scope: ng.IScope, 
             private $http: ng.IHttpService, 
@@ -24,6 +25,8 @@ module Uichallenge {
         /* Method responsible to return all information about the user. */
         public getMyLocation() {
             
+            this.now = new Date();
+
             if(this.myLocationBkp) {
                 this.myLocation = this.myLocationBkp;
             } else {
