@@ -1,6 +1,6 @@
-<div class="ui center aligned container" ng-controller="LocateController as ctrl">
+<div class="ui center aligned locatePage container" ng-controller="LocateController as ctrl">
 
-    <div class="ui stackable two column grid">
+    <div class="ui stackable centered two column grid">
         
         <!-- My Location Panel - Begin -->
         
@@ -11,10 +11,15 @@
                 </div><br/>
                 <div class="ui stackable two column grid">
                     <div class="column">
-                        <button class="mini ui purple basic button" ng-click="ctrl.getMyLocation()">My Location</button>
+                        <button class="mini ui purple basic fluid button" ng-click="ctrl.getMyLocation()">
+                            <i class="marker icon"></i>
+                            My Location
+                        </button>
                     </div>
                     <div class="column">
-                        <button class="mini ui grey basic button"ng-click="ctrl.resetMyLocation()">Reset Location</button>
+                        <button class="mini ui grey basic fluid button"ng-click="ctrl.resetMyLocation()">
+                            Reset Location
+                        </button>
                     </div>
                 </div>
                 <table class="ui very basic collapsing celled table">
@@ -62,7 +67,10 @@
                 <form class="ui form">
                     <div class="ui fluid action input">
                         <input type="text" placeholder="www.avenuecode.com.br/" ng-model="ctrl.hostAddr">
-                        <button class="ui purple button" ng-click="ctrl.searchLocation(ctrl.hostAddr)">Locate</button>
+                        <button class="ui purple button" ng-click="ctrl.searchLocation(ctrl.hostAddr)">
+                            <i class="search icon"></i>
+                            Locate
+                        </button>
                     </div>
                 </form>
             </div>
