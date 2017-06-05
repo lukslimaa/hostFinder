@@ -23,6 +23,8 @@ body {
   .locatePage .myLocationPanel .myLocTable {
     margin-top: 15px;
     font-size: 0.7333rem; }
+    .locatePage .myLocationPanel .myLocTable .ui.table .value {
+      color: lightslategrey; }
   .locatePage .myLocationPanel .myLocDate {
     background-color: #f8f8f8;
     text-align: center;

@@ -4,6 +4,7 @@ module Uichallenge {
 
     export class LocateController {
 
+        private NOT_AVAILABLE: string = 'Not available';
         private employees: any;
         private myLocation: any;
         private myLocationBkp: any;
@@ -18,7 +19,9 @@ module Uichallenge {
             private locationService: LocationService) {
                 
                 var ddChoices = $('.dropdown.choices');
-                ddChoices.dropdown();
+                ddChoices.dropdown(); 
+
+                this.resetMyLocation();
 
         }
 
@@ -38,15 +41,14 @@ module Uichallenge {
 
         public searchLocation(addr:string){
             this.locationService.getHostLocation(addr).then((data)=>{
-                this.hostLocation = data;
-                console.log(this.hostLocation);
+                if(data) {this.hostLocation = data;} 
             });
         }
 
         /* Method responsible to clean up the information about user's location */
         public resetMyLocation(){
             this.myLocationBkp = this.myLocation;
-            this.myLocation = ''; 
+            this.myLocation = '';
         }
 
     }

@@ -40,6 +40,13 @@ body {
         .myLocTable {
             margin-top: 15px;
             font-size: 0.7333rem;
+
+            .ui.table {
+                .value {
+                    color: lightslategrey;
+                }
+            }
+
         }
 
         .myLocDate {

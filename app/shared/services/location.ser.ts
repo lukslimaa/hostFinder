@@ -34,12 +34,16 @@ module Uichallenge {
         public getHostLocation(addr: string): ng.IPromise<any> {
             
             var defer = this.$q.defer();
-            $.ajax({
-                type: 'GET'
-               ,url: this.API_HOST + '/json/' + addr
-               ,success: (response) => {defer.resolve(response)}
-               ,error: (error) => {defer.reject('Something went wrong: ' + error.responseText);}
-            });
+
+            if(angular.isString(addr)) {
+                $.ajax({
+                    type: 'GET'
+                ,url: this.API_HOST + '/json/' + addr
+                ,success: (response) => {defer.resolve(response)}
+                ,error: (error) => {defer.reject('Something went wrong: ' + error.responseText);}
+                });
+            } 
+            
             return defer.promise;
         }
 
