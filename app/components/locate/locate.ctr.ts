@@ -50,7 +50,8 @@ module Uichallenge {
         /* Method responsible to return information about a location based on website domain. */
         public searchLocation(addr:string){
             var isUrlValid = this.searchForm.$valid;
-            if(isUrlValid) {
+            
+            if(addr && isUrlValid) {
                 this.locationService.getHostLocation(addr).then((data)=>{
                     if(data) {this.hostLocation = data;} 
                 });
