@@ -88,7 +88,7 @@
 
             <!-- Map panel - Begin -->
             <div class="column centered mapPanel">
-                <ng-map zoom="1" scrollwheel="false" zoom-to-include-markers="true" center="[{{ctrl.myLocation.latitude}}, {{ctrl.myLocation.longitude}}]" style="height:300px">
+                <ng-map zoom="1" scrollwheel="false" zoom-to-include-markers="true" center="[{{ctrl.myLocation.latitude}}, {{ctrl.myLocation.longitude}}]" style="height:400px">
                     <marker ng-if="ctrl.myLocation.latitude && ctrl.myLocation.longitude" 
                             id="{{ctrl.myLocation.city}}"
                             class="myLocationMarker" 
