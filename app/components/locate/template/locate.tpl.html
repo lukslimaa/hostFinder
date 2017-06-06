@@ -73,9 +73,10 @@
 
             <!-- Search box - Begin -->
             <div class="column centered searchBox">
-                <form class="ui form" name="ctrl.searchForm">
+                <form class="ui form" name="ctrl.searchForm" onsubmit="return false">
+                    <div class="ui error message"></div>
                     <div class="ui fluid action input">
-                        <input type="text" id="input" name="input" placeholder="www.avenuecode.com.br/" ng-pattern="ctrl.urlRegex" ng-model="ctrl.hostAddr">
+                        <input type="text" id="input" name="searchBox" placeholder="www.avenuecode.com.br/" ng-pattern="ctrl.urlRegex" ng-model="ctrl.hostAddr">
                         <button class="ui purple button" ng-click="ctrl.searchLocation(ctrl.hostAddr)">
                             <i class="search icon"></i>
                             Locate

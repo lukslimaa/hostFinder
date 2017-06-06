@@ -39,8 +39,16 @@ module Uichallenge {
                 $.ajax({
                     type: 'GET'
                 ,url: this.API_HOST + '/json/' + addr
-                ,success: (response) => {defer.resolve(response)}
-                ,error: (error) => {defer.reject('Something went wrong: ' + error.responseText);}
+                ,success: (response, textStatus, xhr) => { 
+                    
+                    if(xhr.status === 200) {
+                        defer.resolve(response);
+                    }
+                }
+                ,error: (error, textStatus, xhr) => {
+                    alert('Opsss! We got ' + error.status + ':' + xhr + ' error for: ' + addr + '. Please, verify the domain and try again!');
+                    defer.reject('Something went wrong: ' + error.responseText);
+                }
                 });
             } 
             

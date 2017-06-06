@@ -24,6 +24,10 @@ module Uichallenge {
                 var ddChoices = $('.dropdown.choices');
                 ddChoices.dropdown(); 
 
+                /* validate form */
+                var form = jQuery('.ui.form');
+                this.validateForm(form);
+
                 this.resetMyLocation();
                 this.urlRegex = /^(?!http*).(www)?.?[a-z0-9-]+.+([a-z0-9-]+)?.?([a-z0-9-]+)$/;
 
@@ -43,15 +47,13 @@ module Uichallenge {
             }
         }
 
+        /* Method responsible to return information about a location based on website domain. */
         public searchLocation(addr:string){
-            var isUrlValid = this.searchForm.input.$valid;
-            
+            var isUrlValid = this.searchForm.$valid;
             if(isUrlValid) {
                 this.locationService.getHostLocation(addr).then((data)=>{
                     if(data) {this.hostLocation = data;} 
                 });
-            } else {
-                alert('Please, type a valid address, e.g.: www.google.com or google.com');
             }
         }
 
@@ -59,6 +61,27 @@ module Uichallenge {
         public resetMyLocation(){
             this.myLocationBkp = this.myLocation;
             this.myLocation = '';
+        }
+
+        public validateForm(form){
+            
+            form.form({
+                fields: {
+                    searchBox:{
+                        identifier: 'searchBox',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Please type a valid domain.'
+                            },
+                            {
+                                type   : 'regExp[/^(?!http*).(www)?.?[a-z0-9-]+.+([a-z0-9-]+)?.?([a-z0-9-]+)$/]',
+                                prompt : 'You should type a valid domain, e.g.: avenuecode.com.br or www.avenuecode.com.br'
+                            }
+                        ]
+                    }
+                }
+            });
         }
 
     }
