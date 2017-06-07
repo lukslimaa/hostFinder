@@ -1,20 +1,20 @@
 describe('LocationService tests', function () {
 
-    var locationService,
+    var LocationService,
         httpBackend;
 
     
     beforeEach(function() {
         angular.mock.module('uichallenge');
 
-        inject(function($httpBackend, _locationService_){
-            locationService = _locationService_;
+        inject(function($httpBackend, _LocationService_){
+            LocationService = _LocationService_;
             httpBackend = $httpBackend;
         });
     });
 
     it('LocationService should exist', function() {
-        expect(locationService).toBeDefined();
+        expect(LocationService).toBeDefined();
     });
   
 
