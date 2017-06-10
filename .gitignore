@@ -1,6 +1,5 @@
 ## compiled output ##
 
-/build
 /www/app
 
 ## dependencies ##
@@ -9,6 +8,16 @@
 
 # IDE's and editors in general
 /.idea
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
 # others
 /.sass-cache

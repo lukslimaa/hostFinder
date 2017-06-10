@@ -67,7 +67,7 @@ gulp.task('uglify', function(){
 				.pipe(uglify({mangle: false}))
 				.pipe(sourcemaps.write())
 				.pipe(concat('ui-challenge-min.js'))
-				.pipe(gulp.dest('./build/assets/js'));
+				.pipe(gulp.dest('./build/app'));
 })
 
 /* (5) Giving a ugly face to our css code. */
@@ -132,6 +132,11 @@ gulp.task('build', ['uglify', 'clean-css'], function() {
     .pipe(gulp.dest('./build/assets/libs'));
   
   /* -----------------------------------------------*/
+
+  /* --- Copy img folder -- */
+  gulp.src('./www/assets/img/**/*')
+    .pipe(gulp.dest('./build/assets/img'));
+  /* ---------------------- */
 
   /* ---- Open up the project on browser ---- */
   browserSync.init({
