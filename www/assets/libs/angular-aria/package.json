@@ -1,0 +1,69 @@
+{
+  "name": "angular-aria",
+  "version": "1.6.3",
+  "description": "AngularJS module for making accessibility easy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angular/angular.js.git"
+  },
+  "keywords": [
+    "angular",
+    "framework",
+    "browser",
+    "accessibility",
+    "a11y",
+    "client-side"
+  ],
+  "author": {
+    "name": "Angular Core Team",
+    "email": "angular-core+npm@google.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/angular/angular.js/issues"
+  },
+  "homepage": "http://angularjs.org",
+  "jspm": {
+    "shim": {
+      "angular-aria": {
+        "deps": [
+          "angular"
+        ]
+      }
+    }
+  },
+  "gitHead": "d90814bd90075c76d1307d2ae0711b7396e941b6",
+  "_id": "angular-aria@1.6.3",
+  "_shasum": "8143d2fdf1622408cc669509673599acd85c586c",
+  "_from": "angular-aria@1.6.3",
+  "_npmVersion": "3.10.10",
+  "_nodeVersion": "6.10.0",
+  "_npmUser": {
+    "name": "angularcore",
+    "email": "angular-core+npm@google.com"
+  },
+  "dist": {
+    "shasum": "8143d2fdf1622408cc669509673599acd85c586c",
+    "tarball": "https://registry.npmjs.org/angular-aria/-/angular-aria-1.6.3.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "angularcore",
+      "email": "angular-core+npm@google.com"
+    },
+    {
+      "name": "petebd",
+      "email": "pete@bacondarwin.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/angular-aria-1.6.3.tgz_1488976708653_0.4040709841065109"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/angular-aria/-/angular-aria-1.6.3.tgz"
+}
