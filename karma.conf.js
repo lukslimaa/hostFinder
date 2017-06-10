@@ -15,6 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'www/assets/js/vendor/jquery-1.11.2.min.js',
       'www/assets/libs/angular/angular.js',
       'www/assets/libs/angular-animate/angular-animate.js',
       'www/assets/libs/angular-aria/angular-aria.js',

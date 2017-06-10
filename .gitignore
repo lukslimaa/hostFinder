@@ -1,7 +1,7 @@
 ## compiled output ##
 
 /build
-/www
+/www/app
 
 ## dependencies ##
 /node_modules
