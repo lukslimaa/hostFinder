@@ -1,54 +1,68 @@
-<div class="ui center aligned container" ng-controller="LocateController as ctrl">
+<div class="ui center aligned locatePage container" ng-controller="LocateController as ctrl">
 
-    <div class="ui stackable two column grid">
+    <div class="ui stackable centered two column grid">
         
         <!-- My Location Panel - Begin -->
         
         <div class="six wide column myLocationPanel">
             <div class="ui container segment">
                 <div class="column">
-                    <h2 class="ui header">My Location</h2>
+                    <h2 class="ui dividing header">
+                        <i class="marker icon"></i>
+                        <div class="content">My Location</div>
+                    </h2>
+
                 </div><br/>
                 <div class="ui stackable two column grid">
                     <div class="column">
-                        <button class="mini ui purple basic button" ng-click="ctrl.getMyLocation()">My Location</button>
+                        <button class="mini ui purple basic fluid button" ng-click="ctrl.getMyLocation()">
+                            <i class="search icon"></i>
+                            My Location
+                        </button>
                     </div>
                     <div class="column">
-                        <button class="mini ui grey basic button"ng-click="ctrl.resetMyLocation()">Reset Location</button>
+                        <button class="mini ui grey basic fluid button"ng-click="ctrl.resetMyLocation()">
+                            Reset Location
+                        </button>
                     </div>
                 </div>
-                <table class="ui very basic collapsing celled table">
-                    <tbody>
-                        <tr>
-                            <td>IP</td>
-                            <td>{{ctrl.myLocation.ip}}</td>
-                        </tr>
-                        <tr>
-                            <td>Country</td>
-                            <td>{{ctrl.myLocation.country_name}}</td>
-                        </tr>
-                        <tr>
-                            <td>Region</td>
-                            <td>{{ctrl.myLocation.region_code}}</td>
-                        </tr>
-                        <tr>
-                            <td>City</td>
-                            <td>{{ctrl.myLocation.city}}</td>
-                        </tr>
-                        <tr>
-                            <td>Zip Code</td>
-                            <td>{{ctrl.myLocation.zip_code}}</td>
-                        </tr>
-                        <tr>
-                            <td>Latitude</td>
-                            <td>{{ctrl.myLocation.latitude}}</td>
-                        </tr>
-                        <tr>
-                            <td>Longitude</td>
-                            <td>{{ctrl.myLocation.longitude}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="column myLocTable">
+                    <table class="ui very basic collapsing celled table">
+                        <tbody>
+                            <tr>
+                                <td>IP</td>
+                                <td class="value">{{ctrl.myLocation.ip || 'your ip'}}</td>
+                            </tr>
+                            <tr>
+                                <td>Country</td>
+                                <td class="value">{{ctrl.myLocation.country_name || 'your country name'}}</td>
+                            </tr>
+                            <tr>
+                                <td>Region</td>
+                                <td class="value">{{ctrl.myLocation.region_code || 'your region code'}}</td>
+                            </tr>
+                            <tr>
+                                <td>City</td>
+                                <td class="value">{{ctrl.myLocation.city || 'your city'}}</td>
+                            </tr>
+                            <tr>
+                                <td>Zip Code</td>
+                                <td class="value">{{ctrl.myLocation.zip_code || 'your zip code'}}</td>
+                            </tr>
+                            <tr>
+                                <td>Latitude</td>
+                                <td class="value">{{ctrl.myLocation.latitude || 'your latitude'}}</td>
+                            </tr>
+                            <tr>
+                                <td>Longitude</td>
+                                <td class="value">{{ctrl.myLocation.longitude || 'your longitude'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="column myLocDate">
+                    <p>Last updated: {{ctrl.now | date: 'medium'}}</p>
+                </div>
             </div>
         </div>
         <!-- My Location Panel - End -->
@@ -56,13 +70,23 @@
 
         <!-- Search location - Begin -->
         <div class="column rightPanel">
+            <div class="column">
+                <h2 class="ui dividing inverted header">
+                    <i class="angle double right icon"></i>
+                    <div class="content">Locate a website</div>
+                </h2>
 
+            </div><br/>
             <!-- Search box - Begin -->
             <div class="column centered searchBox">
-                <form class="ui form">
+                <form class="ui form" name="ctrl.searchForm" onsubmit="return false">
+                    <div class="ui error message"></div>
                     <div class="ui fluid action input">
-                        <input type="text" placeholder="www.avenuecode.com.br/" ng-model="ctrl.hostAddr">
-                        <button class="ui purple button" ng-click="ctrl.searchLocation(ctrl.hostAddr)">Locate</button>
+                        <input type="text" id="input" name="searchBox" placeholder="www.avenuecode.com.br/" ng-model="ctrl.hostAddr">
+                        <button class="ui purple button" ng-click="ctrl.searchLocation(ctrl.hostAddr)">
+                            <i class="search icon"></i>
+                            Locate
+                        </button>
                     </div>
                 </form>
             </div>
@@ -70,7 +94,7 @@
 
             <!-- Map panel - Begin -->
             <div class="column centered mapPanel">
-                <ng-map zoom="1" scrollwheel="false" zoom-to-include-markers="true" center="[{{ctrl.myLocation.latitude}}, {{ctrl.myLocation.longitude}}]" style="height:300px">
+                <ng-map zoom="1" scrollwheel="false" zoom-to-include-markers="true" center="[{{ctrl.myLocation.latitude}}, {{ctrl.myLocation.longitude}}]" style="height:400px">
                     <marker ng-if="ctrl.myLocation.latitude && ctrl.myLocation.longitude" 
                             id="{{ctrl.myLocation.city}}"
                             class="myLocationMarker" 

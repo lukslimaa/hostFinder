@@ -5,5 +5,4 @@
 
 /// <reference path="components/locate/locate.ctr.ts" />
 /// <reference path="shared/services/location.ser.ts" />
-/// <reference path="shared/filters/beautifyJsonAttr.ftr.ts" />
 

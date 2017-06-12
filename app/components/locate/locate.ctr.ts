@@ -4,48 +4,66 @@ module Uichallenge {
 
     export class LocateController {
 
-        private employees: any;
-        private myLocation: any;
-        private myLocationBkp: any;
-        private hostLocation: any;
-        private hostAddr: string;
+        private NOT_AVAILABLE: string = 'Not available';
+        public myLocation: any;
+        public hostLocation: any;
+        public hostAddr: string;
+        public now: Date;
+        private element: any;
+
+        private searchForm: any;
+        private urlRegex: any;
 
         constructor(private $scope: ng.IScope, 
             private $http: ng.IHttpService, 
-            private $q: ng.IQService, 
+            private $q: ng.IQService,
+            private $element: any,
             private $translate: ng.translate.ITranslateService,
             private locationService: LocationService) {
-                
-                var ddChoices = $('.dropdown.choices');
-                ddChoices.dropdown();
 
+                this.myLocation = {};
+                this.hostLocation = {};
+                this.resetMyLocation();
         }
 
         /* Method responsible to return all information about the user. */
         public getMyLocation() {
             
-            if(this.myLocationBkp) {
-                this.myLocation = this.myLocationBkp;
-            } else {
-                this.locationService.getMyLocation().then((data) => {
-                    this.myLocation = data;       
-                })
-            }
+            this.now = new Date();
+            this.locationService.getMyLocation().then((data) => {
+                this.myLocation = data;       
+            });
         }
 
-        public searchLocation(addr:string){
-            this.locationService.getHostLocation(addr).then((data)=>{
-                this.hostLocation = data;
-                console.log(this.hostLocation);
-            });
+        /* Method responsible to return information about a location based on website domain. */
+        public searchLocation(addr:string) {
+            if(this.validateURL(addr)) {
+                this.locationService.getHostLocation(addr).then((data)=>{
+                    if(data) {this.hostLocation = data;} 
+                });
+            } else {
+                this.hostAddr = '';
+                this.hostLocation = {};
+            }
         }
 
         /* Method responsible to clean up the information about user's location */
         public resetMyLocation(){
-            this.myLocationBkp = this.myLocation;
-            this.myLocation = ''; 
+            this.myLocation = '';
         }
 
+        public validateURL(addr: string): boolean{
+            var pattern = /^(?!http*).(www)?.?[a-z0-9-]+.+([a-z0-9-]+)?.?([a-z0-9-]+)$/;
+
+            if(!addr || addr === '') {
+                alert('You should type a website domain. Try it!');
+                return false;
+            } else {
+                if(!pattern.test(addr)) {alert('http and https prefix not allowed! Please, type a domain such as: www.google.com or avenuecode.com.br');}
+                return (pattern.test(addr) ? true : false);
+            }
+
+        }
     }
 }
-app.controller('LocateController', ['$scope', '$http', '$q', '$translate', 'LocationService', Uichallenge.LocateController]);
+app.controller('LocateController', ['$scope', '$http', '$q', '$element', '$translate', 'LocationService', Uichallenge.LocateController]);

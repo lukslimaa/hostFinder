@@ -12,14 +12,13 @@ var uglify = require('gulp-uglify'); // Minify JavaScript
 //var imagemin = require('gulp-imagemin'); // Minify images
 
 // Other dependencies
-//var size = require('gulp-size'); // Get the size of the project
 var flatten = require('gulp-flatten');
 var browserSync = require('browser-sync'); // Reload the browser on file changes
-//var jshint = require('gulp-jshint'); // Debug JS files
-//var stylish = require('jshint-stylish'); // More stylish debugging
 var ts = require('gulp-typescript');
 var sourcemaps = require('gulp-sourcemaps');
 var ngmin = require('gulp-ngmin');
+var Server = require('karma').Server;
+
 
 /* just starting new project typescript */
 var tsProject = ts.createProject({
@@ -34,8 +33,6 @@ gulp.task('styles', function() {
   gulp.src('./app/sass/styles.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./www/assets/css'))
-    .pipe(cleanCSS({compatibility: 'ie8'}))
-    .pipe(gulp.dest('./build/styles/'))
     .pipe(browserSync.reload({
       stream: true,
     }));
@@ -47,42 +44,46 @@ gulp.task('templates', function() {
   gulp.src('./app/components/**/*.html')
     .pipe(htmlmin({collapseWhitespace: true}))
     .pipe(flatten())
-    .pipe(gulp.dest('./build/templates'))
     .pipe(gulp.dest('./www/assets/pages/templates'));
 });
 
 /* (3) Task to run JS hint */
-// gulp.task('jshint', function() {
-//   gulp.src('./assets/scripts/*.js')
-//     .pipe(jshint())
-//     .pipe(jshint.reporter('jshint-stylish'));
-// });
+gulp.task('jshint', function() {
+  gulp.src('./assets/scripts/*.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'));
+});
 
 
 
-/* (4)  */
+/* (4) Uglify our js files.  */
 gulp.task('uglify', function(){
-	var tsResults = gulp.src('./app/**/*.ts')
+	var tsResults = gulp.src(['./app/**/*.ts', '!./app/test/*.ts'])
 		.pipe(sourcemaps.init())
-		.pipe(ts(tsProject));
+		.pipe(tsProject());
 	
 	return tsResults.js.pipe(ngmin())
 				.pipe(uglify({mangle: false}))
 				.pipe(sourcemaps.write())
 				.pipe(concat('ui-challenge-min.js'))
-				.pipe(gulp.dest('./build/js'));
+				.pipe(gulp.dest('./build/app'));
 })
 
+/* (5) Giving a ugly face to our css code. */
+gulp.task('clean-css', function() {
+  
+  gulp.src('./www/assets/css/*.css')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(cleanCSS({compatibility: 'ie8'}))
+    .pipe(concat('styles.css'))
+    .pipe(gulp.dest('./build/assets/styles/'));
 
-// gulp.task('compress', function() {
-//   var tsResults = gulp.src('src/app/**/*.ts')
-// 	                    .pipe(sourcemaps.init())
-// 	                    .pipe(ts(tsProject));
-//   return tsResults.js.pipe(uglify()).pipe(sourcemaps.write())
-//     .pipe(concat('tomedescontos.js')).pipe(gulp.dest('WebContent/www/app'));
-// });
+  gulp.src('./www/assets/css/semantic/**/*')
+    .pipe(gulp.dest('./build/assets/styles/semantic'))
+});
 
-gulp.task('scripts', function() {
+/* (6) Translate typescript to JavaScript */
+gulp.task('translate-to-js', function() {
 	var tsResults = gulp.src('./app/**/*.ts')
 	                    .pipe(sourcemaps.init())
 	                    .pipe(tsProject());
@@ -92,22 +93,63 @@ gulp.task('scripts', function() {
 });
 
 
-/* Serve application */
-gulp.task('serve', ['styles', 'templates', 'scripts'], function() {
+/* (7) Serve application */
+gulp.task('serve', ['styles', 'templates', 'translate-to-js'], function() {
   browserSync.init({
     server: {
-      baseDir: 'www',
+      baseDir: 'www'
     },
   });
 });
 
 
+/* (8) Watch changes while coding. */
 gulp.task('watch', ['serve'], function() {
-	gulp.watch('app/**/*.ts', ['scripts']);
+	gulp.watch('app/**/*.ts', ['translate-to-js']);
   gulp.watch('app/components/**/*.html', ['templates']);
   gulp.watch('app/sass/**/*.scss', ['styles']);
 
   gulp.watch('www/assets/pages/**/*.html', browserSync.reload);
   gulp.watch('www/app/**/*.js', browserSync.reload);
   gulp.watch('www/assets/css/**/*.css', browserSync.reload);
+});
+
+/* (9) Build our application */
+gulp.task('build', ['uglify', 'clean-css'], function() {
+
+  /* --- Copy all templates pages to our build folder --- */
+  gulp.src('./app/components/**/*.html')
+    .pipe(flatten())
+    .pipe(gulp.dest('./build/assets/pages/templates'));
+  /* ---------------------------------------------------- */
+
+  /* --- Copy js libraries to the build folder --- */
+  gulp.src('./www/assets/js/vendor/**/*.js')
+    .pipe(gulp.dest('./build/assets/js/vendor'));
+  
+  gulp.src('./www/assets/libs/**/*')
+    .pipe(gulp.dest('./build/assets/libs'));
+  
+  /* -----------------------------------------------*/
+
+  /* --- Copy img folder -- */
+  gulp.src('./www/assets/img/**/*')
+    .pipe(gulp.dest('./build/assets/img'));
+  /* ---------------------- */
+
+  /* ---- Open up the project on browser ---- */
+  browserSync.init({
+    server:{
+      baseDir: 'build'
+    }
+  });
+  /* ----------------------------------------- */
+
+});
+
+gulp.task('test', ['translate-to-js'], (done) => {
+  new Server({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done).start();
 });

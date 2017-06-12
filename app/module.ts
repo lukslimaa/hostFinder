@@ -6,3 +6,7 @@ var app = angular.module('uichallenge', ['ui.router'
                                         ,'angularMoment'
                                         ,'ngMap'], function($compileProvider){
 })
+
+.config(['$qProvider', function ($qProvider) {
+    $qProvider.errorOnUnhandledRejections(false);
+}]);

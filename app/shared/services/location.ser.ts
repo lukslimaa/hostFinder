@@ -17,12 +17,12 @@ module Uichallenge {
         public getMyLocation(): ng.IPromise<any> {
             
             var defer = this.$q.defer();
-            $.ajax({
-                type : 'GET'
-               ,url : this.API_HOST + '/json/'
-               
-               ,success: (response) => {defer.resolve(response);}
-               ,error: (error) => {defer.reject('Something went wrong: ' + error.responseText);} 
+            
+            this.$http.get(this.API_HOST + '/json/').then(function successCallback(response) {
+                defer.resolve(response.data);
+            }, function errorcallback(response) {
+                alert('Ops! Something went wrong and we did not get your location! [' + response.status + ' : ' + response.statusText + '.');
+                defer.reject(response.data);
             });
 
             return defer.promise;
@@ -34,16 +34,17 @@ module Uichallenge {
         public getHostLocation(addr: string): ng.IPromise<any> {
             
             var defer = this.$q.defer();
-            $.ajax({
-                type: 'GET'
-               ,url: this.API_HOST + '/json/' + addr
-               ,success: (response) => {defer.resolve(response)}
-               ,error: (error) => {defer.reject('Something went wrong: ' + error.responseText);}
-            });
+
+            if(angular.isString(addr)) {
+                this.$http.get(this.API_HOST + '/json/' + addr).then(function successCallback(response) {
+                    defer.resolve(response.data);
+                }, function errorcallback(response) {
+                    alert('Ops! We got a ' + response.status + ' : ' + response.statusText + '. Please, check whether you typed the website address correctly and try again!');
+                });
+            }
+            
             return defer.promise;
         }
-
-
     }
 }
 
