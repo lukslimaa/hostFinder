@@ -3,7 +3,6 @@
 /coverage
 /karma_html
 /www/app
-/typings
 /www/assets/pages
 
 ## dependencies ##
