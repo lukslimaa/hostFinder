@@ -5,12 +5,11 @@ module Uichallenge {
     export class LocateController {
 
         private NOT_AVAILABLE: string = 'Not available';
-        private employees: any;
-        private myLocation: any;
-        private myLocationBkp: any;
-        private hostLocation: any;
-        private hostAddr: string;
-        private now: Date;
+        public myLocation: any;
+        public hostLocation: any;
+        public hostAddr: string;
+        public now: Date;
+        private form: any;
 
         private searchForm: any;
         private urlRegex: any;
@@ -20,37 +19,34 @@ module Uichallenge {
             private $q: ng.IQService, 
             private $translate: ng.translate.ITranslateService,
             private locationService: LocationService) {
-                
-                var ddChoices = $('.dropdown.choices');
-                ddChoices.dropdown(); 
+
+                this.myLocation = {};
+                this.hostLocation = {};
 
                 /* validate form */
-                var form = jQuery('.ui.form');
-                this.validateForm(form);
-
+                this.searchForm = jQuery('.ui.form');
+    
                 this.resetMyLocation();
                 this.urlRegex = /^(?!http*).(www)?.?[a-z0-9-]+.+([a-z0-9-]+)?.?([a-z0-9-]+)$/;
-
         }
 
         /* Method responsible to return all information about the user. */
         public getMyLocation() {
             
             this.now = new Date();
-
-            if(this.myLocationBkp) {
-                this.myLocation = this.myLocationBkp;
-            } else {
-                this.locationService.getMyLocation().then((data) => {
-                    this.myLocation = data;       
-                })
-            }
+            this.locationService.getMyLocation().then((data) => {
+                this.myLocation = data;       
+            });
         }
 
         /* Method responsible to return information about a location based on website domain. */
-        public searchLocation(addr:string){
-            var isUrlValid = this.searchForm.$valid;
+        public searchLocation(addr:string) {
             
+            // this.validateForm();
+            //var isUrlValid = this.searchForm.$valid;
+            var patt = /^(?!http*).(www)?.?[a-z0-9-]+.+([a-z0-9-]+)?.?([a-z0-9-]+)$/;
+            var isUrlValid = patt.test(addr);
+
             if(addr && isUrlValid) {
                 this.locationService.getHostLocation(addr).then((data)=>{
                     if(data) {this.hostLocation = data;} 
@@ -60,12 +56,11 @@ module Uichallenge {
 
         /* Method responsible to clean up the information about user's location */
         public resetMyLocation(){
-            this.myLocationBkp = this.myLocation;
             this.myLocation = '';
         }
 
         public validateForm(form){
-            
+            this.hostAddr
             form.form({
                 fields: {
                     searchBox:{

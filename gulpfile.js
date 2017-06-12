@@ -12,14 +12,12 @@ var uglify = require('gulp-uglify'); // Minify JavaScript
 //var imagemin = require('gulp-imagemin'); // Minify images
 
 // Other dependencies
-//var size = require('gulp-size'); // Get the size of the project
 var flatten = require('gulp-flatten');
 var browserSync = require('browser-sync'); // Reload the browser on file changes
-//var jshint = require('gulp-jshint'); // Debug JS files
-//var stylish = require('jshint-stylish'); // More stylish debugging
 var ts = require('gulp-typescript');
 var sourcemaps = require('gulp-sourcemaps');
 var ngmin = require('gulp-ngmin');
+var Server = require('karma').Server;
 
 /* just starting new project typescript */
 var tsProject = ts.createProject({
@@ -45,7 +43,7 @@ gulp.task('templates', function() {
   gulp.src('./app/components/**/*.html')
     .pipe(htmlmin({collapseWhitespace: true}))
     .pipe(flatten())
-    .pipe(gulp.dest('./www/assets/pages'));
+    .pipe(gulp.dest('./www/assets/pages/templates'));
 });
 
 /* (3) Task to run JS hint */
@@ -146,4 +144,11 @@ gulp.task('build', ['uglify', 'clean-css'], function() {
   });
   /* ----------------------------------------- */
 
+});
+
+gulp.task('test', (done) => {
+  new Server({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done).start();
 });
