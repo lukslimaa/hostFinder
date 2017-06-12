@@ -147,7 +147,7 @@ gulp.task('build', ['uglify', 'clean-css'], function() {
 
 });
 
-gulp.task('test', (done) => {
+gulp.task('test', ['translate-to-js'], (done) => {
   new Server({
     configFile: __dirname + '/karma.conf.js',
     singleRun: true

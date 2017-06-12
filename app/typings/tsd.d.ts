@@ -6,5 +6,4 @@
 /// <reference path="moment/moment.d.ts" />
 /// <reference path="jasmine/index.d.ts" />
 /// <reference path="angular-mocks/index.d.ts" />
-/// <reference path="semantic-ui-form/index.d.ts" />
 
