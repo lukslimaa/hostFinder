@@ -11,6 +11,7 @@
     "ui-challenge": "gulpfile.js"
   },
   "dependencies": {
+    "@types/semantic-ui-form": "^2.2.0",
     "better-console": "^1.0.0",
     "del": "^2.2.2",
     "extend": "^3.0.1",

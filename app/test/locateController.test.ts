@@ -6,6 +6,7 @@ describe('Locate Controller', () => {
     var $scope: ng.IScope;
     var $controller: Uichallenge.LocateController;
     var service: Uichallenge.LocationService;
+    var element: any;
 
     var mockMyLocation = {
         ip:"189.45.87.150",
@@ -44,6 +45,8 @@ describe('Locate Controller', () => {
         $controller = _$controller_;
         service = _LocationService_;
 
+        element = angular.element('form');
+
         var websiteDeferred = _$q_.defer();
         websiteDeferred.resolve(mockMyLocation);
         spyOn(service, 'getMyLocation').and.returnValue(websiteDeferred.promise);
@@ -51,8 +54,8 @@ describe('Locate Controller', () => {
         var avenueCodeDeferred = _$q_.defer();
         avenueCodeDeferred.resolve(mockAvenueCodeLocation);
         spyOn(service, 'getHostLocation').and.returnValue(avenueCodeDeferred.promise)
-
-        $controller = _$controller_('LocateController', {$scope: $scope, $rootScope: $rootScope, locationService: service});
+        spyOn(window, 'alert');
+        $controller = _$controller_('LocateController', {$scope: $scope, $rootScope: $rootScope, $element: element, locationService: service});
     }));
 
     it('should get my controller and methods defined', ()=>{
@@ -114,6 +117,33 @@ describe('Locate Controller', () => {
             expect($controller.hostLocation).toBe(mockAvenueCodeLocation);
         });
 
+    });
+
+    describe('Validate website url', ()=>{
+        var result: boolean;
+        it('should return false for a empty entry', () => {
+            result = $controller.validateURL('');
+            expect(result).toBeFalsy();
+            expect(window.alert).toHaveBeenCalledWith('You should type a website domain. Try it!');
+        });
+
+        it('should return false for a domain which begins with http', () => {
+            result = $controller.validateURL('http://tomedescontos.com');
+            expect(result).toBeFalsy();
+            expect(window.alert).toHaveBeenCalledWith('http and https prefix not allowed! Please, type a domain such as: www.google.com or avenuecode.com.br');
+        });
+
+        it('should return false for a domain which begins with https', () => {
+            result = $controller.validateURL('https://google.com');
+            expect(result).toBeFalsy();
+            expect(window.alert).toHaveBeenCalledWith('http and https prefix not allowed! Please, type a domain such as: www.google.com or avenuecode.com.br');
+        });
+
+        it('should return true for a valid domain', () => {
+            result = $controller.validateURL('www.avenuecode.com.br');
+            expect(result).toBeTruthy();
+            expect(window.alert).not.toHaveBeenCalled();
+        });
     });
 
 }); 
