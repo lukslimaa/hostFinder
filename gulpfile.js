@@ -43,7 +43,7 @@ gulp.task('templates', function() {
   gulp.src('./app/components/**/*.html')
     .pipe(htmlmin({collapseWhitespace: true}))
     .pipe(flatten())
-    .pipe(gulp.dest('./www/assets/pages'));
+    .pipe(gulp.dest('./www/assets/pages/templates'));
 });
 
 /* (3) Task to run JS hint */

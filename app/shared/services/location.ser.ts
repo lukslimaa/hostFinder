@@ -18,10 +18,11 @@ module Uichallenge {
             
             var defer = this.$q.defer();
             
-            this.$http.get(this.API_HOST + '/json/').then((response) => {
+            this.$http.get(this.API_HOST + '/json/').then(function successCallback(response) {
                 defer.resolve(response.data);
-            }, (errResponse) => {
-                defer.reject(errResponse);
+            }, function errorcallback(response) {
+                alert('Ops! Something went wrong and we did not get your location! [' + response.status + ' : ' + response.statusText + '.');
+                defer.reject(response.data);
             });
 
             return defer.promise;
@@ -35,12 +36,12 @@ module Uichallenge {
             var defer = this.$q.defer();
 
             if(angular.isString(addr)) {
-                this.$http.get(this.API_HOST + '/json/' + addr).then((response) => {
+                this.$http.get(this.API_HOST + '/json/' + addr).then(function successCallback(response) {
                     defer.resolve(response.data);
-                }, (errResponse) => {
-                    defer.reject(errResponse);
+                }, function errorcallback(response) {
+                    alert('Ops! We got a ' + response.status + ' : ' + response.statusText + '. Please, check whether you typed the website address correctly and try again!');
                 });
-            }; 
+            }
             
             return defer.promise;
         }
