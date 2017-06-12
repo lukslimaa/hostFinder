@@ -1,6 +1,6 @@
 /// <reference path="app.d.ts" />
 
-module Tomedescontos {
+module Uichallenge {
 	app.config(function($stateProvider, $urlRouterProvider){
        // $locationProvider.html5Mode({ enabled: true, requireBase: false });
         $urlRouterProvider.otherwise('/locate');

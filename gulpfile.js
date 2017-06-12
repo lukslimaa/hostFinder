@@ -19,6 +19,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var ngmin = require('gulp-ngmin');
 var Server = require('karma').Server;
 
+
 /* just starting new project typescript */
 var tsProject = ts.createProject({
 });
@@ -57,7 +58,7 @@ gulp.task('jshint', function() {
 
 /* (4) Uglify our js files.  */
 gulp.task('uglify', function(){
-	var tsResults = gulp.src('./app/**/*.ts')
+	var tsResults = gulp.src(['./app/**/*.ts', '!./app/test/*.ts'])
 		.pipe(sourcemaps.init())
 		.pipe(tsProject());
 	
