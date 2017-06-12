@@ -17,12 +17,11 @@ module Uichallenge {
         public getMyLocation(): ng.IPromise<any> {
             
             var defer = this.$q.defer();
-            $.ajax({
-                type : 'GET'
-               ,url : this.API_HOST + '/json/'
-               
-               ,success: (response) => {defer.resolve(response);}
-               ,error: (error) => {defer.reject('Something went wrong: ' + error.responseText);} 
+            
+            this.$http.get(this.API_HOST + '/json/').then((response) => {
+                defer.resolve(response.data);
+            }, (errResponse) => {
+                defer.reject(errResponse);
             });
 
             return defer.promise;
@@ -36,26 +35,15 @@ module Uichallenge {
             var defer = this.$q.defer();
 
             if(angular.isString(addr)) {
-                $.ajax({
-                    type: 'GET'
-                ,url: this.API_HOST + '/json/' + addr
-                ,success: (response, textStatus, xhr) => { 
-                    
-                    if(xhr.status === 200) {
-                        defer.resolve(response);
-                    }
-                }
-                ,error: (error, textStatus, xhr) => {
-                    alert('Opsss! We got ' + error.status + ':' + xhr + ' error for: ' + addr + '. Please, verify the domain and try again!');
-                    defer.reject('Something went wrong: ' + error.responseText);
-                }
+                this.$http.get(this.API_HOST + '/json/' + addr).then((response) => {
+                    defer.resolve(response.data);
+                }, (errResponse) => {
+                    defer.reject(errResponse);
                 });
-            } 
+            }; 
             
             return defer.promise;
         }
-
-
     }
 }
 

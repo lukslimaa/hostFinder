@@ -26,7 +26,8 @@ module.exports = function(config) {
       'node_modules/angular-mocks/angular-mocks.js',
       'www/app/module.js',
       'www/app/shared/services/location.ser.js',
-      'tests/*.test.js'
+      'www/app/components/locate/locate.ctr.js',
+      'www/app/test/*.test.js'
     ],
 
 
@@ -38,13 +39,14 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      '*.js': ['coverage']
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
 
 
     // web server port
