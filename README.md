@@ -1,4 +1,4 @@
-# UI-Challenge
+# HOST Finder_
 
 Are you curious about how far a website could be hosted from you? Now you can figure this out! Using this app you will be able to get your location and see the distance between you and a website on the map!
 
